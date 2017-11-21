@@ -41,8 +41,8 @@ public class ChefManagement implements Management {
         metric.setCatogery("Operating System");
         metric.setValue(environmentEndpoint.getResolver().getProperty("os.version"));
         String osName = environmentEndpoint.getResolver().getProperty("os.name");
-        metric.setUnit(OS.getIcon(osName));
-        metric.setIcon("fa fa-apple");
+        metric.setUnit(osName);
+        metric.setIcon(OS.getIcon(osName));
         chefMetrics.add(metric);
     }
 }
