@@ -1,5 +1,6 @@
 package com.arcosoft.arcLogChef.services.chef.impls;
 
+import com.arcosoft.arcLogChef.OS;
 import com.arcosoft.arcLogChef.dto.ChefMetrics;
 import com.arcosoft.arcLogChef.services.chef.Management;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,7 +40,8 @@ public class ChefManagement implements Management {
         ChefMetrics metric = new ChefMetrics();
         metric.setCatogery("Operating System");
         metric.setValue(environmentEndpoint.getResolver().getProperty("os.version"));
-        metric.setUnit(environmentEndpoint.getResolver().getProperty("os.name"));
+        String osName = environmentEndpoint.getResolver().getProperty("os.name");
+        metric.setUnit(OS.getIcon(osName));
         metric.setIcon("fa fa-apple");
         chefMetrics.add(metric);
     }
