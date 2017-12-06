@@ -1,7 +1,9 @@
 package com.arcosoft.arcLogChef.aspects;
 
+import com.arcosoft.arcLogChef.exceptions.ChefException;
 import com.google.gson.Gson;
 import org.aspectj.lang.ProceedingJoinPoint;
+import org.aspectj.lang.annotation.AfterThrowing;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
 import org.slf4j.Logger;
@@ -24,6 +26,11 @@ public class LoggingAspect {
         LOGGER.info("logOutputJSON(around) Resource >>>");
         return logOutput(proceedingJoinPoint);
 
+    }
+
+    @AfterThrowing(value = "execution(* com.arcosoft.arcLogChef.resources..*(..))", throwing = "exception")
+    public void logChefException(ChefException exception) throws Throwable {
+        LOGGER.error("ChefException occured ----->", exception.getCause().getMessage());
     }
 
     private Object logOutput(ProceedingJoinPoint joinPoint) throws Throwable {

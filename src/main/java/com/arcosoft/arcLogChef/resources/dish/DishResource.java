@@ -1,15 +1,11 @@
 package com.arcosoft.arcLogChef.resources.dish;
 
-import com.arcosoft.arcLogChef.dto.DishInfo;
-import com.arcosoft.arcLogChef.dto.GenericResponse;
+import com.arcosoft.arcLogChef.dto.ActionResult;
 import com.arcosoft.arcLogChef.dto.Query;
-import com.arcosoft.arcLogChef.dto.QueryResponse;
+import com.arcosoft.arcLogChef.exceptions.ChefException;
 import com.arcosoft.arcLogChef.services.dish.DishService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.Set;
-import java.util.TreeSet;
 
 /**
  * Created by princegupta on 15/11/17.
@@ -22,27 +18,37 @@ public class DishResource {
     DishService dishService;
 
     @RequestMapping(value = "/dishsInfo" , method = RequestMethod.GET)
-    public TreeSet<DishInfo> getDishsInfo() throws InterruptedException {
-        return dishService.getDishsInfo();
+    public ActionResult getDishsInfo() throws ChefException {
+        ActionResult actionResult = new ActionResult();
+        actionResult.addResult("dishsInfo",dishService.getDishsInfo());
+        return actionResult;
     }
 
     @RequestMapping(value = "/dish/{id}", method = RequestMethod.GET)
-    public DishInfo getDishInfo(@PathVariable("id") String id) throws InterruptedException {
-        return dishService.getDishInfo(id);
+    public ActionResult getDishInfo(@PathVariable("id") String id) throws InterruptedException {
+        ActionResult actionResult = new ActionResult();
+        actionResult.addResult("dish-"+id, dishService.getDishInfo(id));
+        return actionResult;
     }
 
     @RequestMapping(value="/stop/{id}", method = RequestMethod.GET)
-    public String shutdown(@PathVariable("id") String id){
-        return dishService.shutdownDish(id);
+    public ActionResult shutdown(@PathVariable("id") String id){
+        ActionResult actionResult = new ActionResult();
+        actionResult.addResult("stop-"+id, dishService.shutdownDish(id));
+        return actionResult;
     }
 
     @RequestMapping(value="/query", method = RequestMethod.POST)
-    public Set<QueryResponse> queryDishs(@RequestBody Query query) throws InterruptedException {
-        return dishService.queryDishs(query);
+    public ActionResult queryDishs(@RequestBody Query query) throws ChefException {
+        ActionResult actionResult = new ActionResult();
+        actionResult.addResult("query",dishService.queryDishs(query));
+        return actionResult;
     }
 
     @RequestMapping(value="/reIndex/{id}", method = RequestMethod.GET)
-    public GenericResponse reIndex(@PathVariable("id") String dishId){
-        return dishService.reIndex(dishId);
+    public ActionResult reIndex(@PathVariable("id") String dishId){
+        ActionResult actionResult = new ActionResult();
+        actionResult.addResult("reIndex-"+dishId, dishService.reIndex(dishId));
+        return actionResult;
     }
 }

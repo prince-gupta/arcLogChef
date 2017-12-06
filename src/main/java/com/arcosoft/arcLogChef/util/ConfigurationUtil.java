@@ -15,7 +15,7 @@ public class ConfigurationUtil {
     @Autowired
     PropertyConfigurator propertyConfigurator;
 
-    public String getDishId(String url){
+    public String getDishId(String url) {
         Optional<String> optional = propertyConfigurator
                 .getHost()
                 .entrySet()
@@ -26,7 +26,11 @@ public class ConfigurationUtil {
         return optional.get();
     }
 
-    public String getHostName(String url){
-        return url.substring(url.indexOf("//")+2, url.lastIndexOf(":"));
+    public String getHostName(String url) {
+        if (url.indexOf(":") != url.lastIndexOf(":")) {
+            return url.substring(url.indexOf("//") + 2, url.lastIndexOf(":"));
+        } else {
+            return url.substring(url.indexOf("//") + 2);
+        }
     }
 }

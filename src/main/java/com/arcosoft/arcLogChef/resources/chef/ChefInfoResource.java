@@ -1,5 +1,6 @@
 package com.arcosoft.arcLogChef.resources.chef;
 
+import com.arcosoft.arcLogChef.dto.ActionResult;
 import com.arcosoft.arcLogChef.dto.ChefMetrics;
 import com.arcosoft.arcLogChef.services.chef.Management;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,10 +21,14 @@ public class ChefInfoResource {
     @Autowired
     Management management;
 
+    @Autowired
+    ActionResult result;
+
     @RequestMapping(value = "/metrics", method = RequestMethod.GET)
-    public List<ChefMetrics> getMetrics(){
+    public ActionResult getMetrics(){
         List<ChefMetrics> metrics = new ArrayList<>();
         management.populateChefMetrics(metrics);
-        return metrics;
+        result.addResult("metrics", metrics);
+        return result;
     }
 }

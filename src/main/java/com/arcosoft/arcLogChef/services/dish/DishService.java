@@ -4,6 +4,7 @@ import com.arcosoft.arcLogChef.dto.DishInfo;
 import com.arcosoft.arcLogChef.dto.GenericResponse;
 import com.arcosoft.arcLogChef.dto.Query;
 import com.arcosoft.arcLogChef.dto.QueryResponse;
+import com.arcosoft.arcLogChef.exceptions.ChefException;
 
 import java.util.Set;
 import java.util.TreeSet;
@@ -13,13 +14,13 @@ import java.util.TreeSet;
  */
 public interface DishService {
 
-    TreeSet<DishInfo> getDishsInfo() throws InterruptedException;
+    TreeSet<DishInfo> getDishsInfo() throws ChefException;
 
-    DishInfo getDishInfo(String id) throws InterruptedException;
+    DishInfo getDishInfo(String id);
 
     String shutdownDish(String id);
 
-    Set<QueryResponse> queryDishs(Query query) throws InterruptedException;
+    Set<QueryResponse> queryDishs(Query query) throws ChefException;
 
     GenericResponse reIndex(String dishId);
 }

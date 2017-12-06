@@ -32,11 +32,7 @@ public class ChefManagement implements Management {
         populateOS(chefMetrics);
     }
 
-    public void populateChefEnv(List<ChefMetrics> chefMetrics) {
-        populateOS(chefMetrics);
-    }
-
-    public void populateOS(List<ChefMetrics> chefMetrics){
+    private void populateOS(List<ChefMetrics> chefMetrics){
         ChefMetrics metric = new ChefMetrics();
         metric.setCatogery("Operating System");
         metric.setValue(environmentEndpoint.getResolver().getProperty("os.version"));
