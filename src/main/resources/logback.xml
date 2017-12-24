@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+
+<property name="LOG_HOME" value="/Users/princegupta/Documents/Workspace/Logs/arcLogChef/log/" />
+
+<appender name="FILE-AUDIT"
+          class="ch.qos.logback.core.rolling.RollingFileAppender">
+    <file>${LOG_HOME}/chef.log</file>
+    <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+        <Pattern>
+            %d{yyyy-MM-dd HH:mm:ss} - %msg%n
+        </Pattern>
+    </encoder>
+
+    <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+        <!-- rollover daily -->
+        <fileNamePattern>${LOG_HOME}/archived/archived.%d{yyyy-MM-dd}.%i.log
+        </fileNamePattern>
+        <timeBasedFileNamingAndTriggeringPolicy
+                class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
+            <maxFileSize>2MB</maxFileSize>
+        </timeBasedFileNamingAndTriggeringPolicy>
+    </rollingPolicy>
+
+</appender>
+
+<logger name="logging.level.org.springframework.web" level="error"
+        additivity="false">
+    <appender-ref ref="FILE-AUDIT" />
+</logger>
+
+<root level="debug">
+    <appender-ref ref="FILE-AUDIT" />
+</root>
+
+</configuration>

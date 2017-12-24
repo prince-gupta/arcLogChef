@@ -1,0 +1,44 @@
+server:
+  port: 8381
+
+management:
+  contextPath: /management/
+  security:
+    enabled: false
+
+dish:
+  index:
+    path: /Users/princegupta/Documents/Workspace/Lucene/Index
+  doc:
+    path: /Users/princegupta/Documents/Workspace/Lucene/Data/
+#dish.index.path=.
+#dish.doc.path=.
+#Add cron expression to re-index on intervals
+
+  re_indexing:
+    enable: false
+
+endpoints:
+  beans:
+    id: HerokuDish
+    sensitive: false
+    enabled: true
+  shutdown:
+      enabled: true
+
+info:
+  app:
+    name: Heroku Dish
+    node:
+      info:
+        ip: 127.0.0.1
+    version: 1.0.0
+
+logging:
+  level:
+    org:
+      springframework:
+        web: ERROR
+    com:
+      arcosoft: ERROR
+  file: /Users/princegupta/Documents/Workspace/Logs/arcLogDish/dish.log

@@ -1,0 +1,39 @@
+server:
+  port: 8380
+
+spring:
+  cloud:
+    config:
+      server:
+        native:
+          search-locations: classpath:/shared
+  profiles:
+    active: native
+  application:
+    name: chef
+
+config:
+  host:
+    Dish1: http://localhost:8381
+    Dish2: http://localhost:8082
+    Dish3: http://localhost:8383
+    Dish4: http://localhost:8384
+    #HerokuDish: https://herokudish1.herokuapp.com
+
+info:
+  chef:
+    id: HerokuChef
+    name: HerokuChef
+    host: heroku
+    version: 1.0.0
+
+logging:
+  level:
+    org:
+      springframework:
+        web: DEBUG
+
+#logging:
+#  level:
+#    com:
+#      arcosoft: DEBUG
